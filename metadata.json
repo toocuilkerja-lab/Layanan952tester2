@@ -1,0 +1,7 @@
+{
+  "name": "Layanan952tester2",
+  "description": "Aplikasi pelayanan perpajakan resmi untuk KPP Pratama Jayapura, menyediakan akses mudah ke layanan NPWP, PKP, e-Billing, dan PBK.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

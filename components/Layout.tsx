@@ -6,12 +6,9 @@ interface LayoutProps {
   children: React.ReactNode;
   activeTab: AppTab;
   setActiveTab: (tab: AppTab) => void;
-  isLoggedIn: boolean;
-  onLoginClick: () => void;
-  onLogout: () => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab, isLoggedIn, onLoginClick, onLogout }) => {
+const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
   const tabs: { id: AppTab; icon: string; label: string }[] = [
     { id: 'Beranda', icon: 'fa-home', label: 'Beranda' },
     { id: 'Tutorial', icon: 'fa-book-open', label: 'Tutorial' },
@@ -34,13 +31,6 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab, isLo
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <button 
-              onClick={isLoggedIn ? onLogout : onLoginClick}
-              className={`text-sm font-bold px-3 py-1 rounded-lg transition-all ${isLoggedIn ? 'bg-red-500/20 text-red-200 border border-red-500/50' : 'bg-white/10 text-white hover:bg-white/20'}`}
-            >
-              <i className={`fa-solid ${isLoggedIn ? 'fa-right-from-bracket' : 'fa-user-lock'} mr-1.5`}></i>
-              {isLoggedIn ? 'Keluar' : 'Login'}
-            </button>
             <button className="text-xl relative">
               <i className="fa-solid fa-bell"></i>
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>

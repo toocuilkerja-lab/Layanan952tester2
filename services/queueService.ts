@@ -29,6 +29,14 @@ const INITIAL_DATA: QueueInfo[] = [
     current: 'C000',
     last: 'C000',
     color: 'bg-orange-500'
+  },
+  {
+    id: 'D',
+    label: 'Lainnya',
+    description: '',
+    current: 'D000',
+    last: 'D000',
+    color: 'bg-purple-600'
   }
 ];
 
@@ -37,6 +45,7 @@ const getColorById = (id: string) => {
     case 'A': return 'bg-blue-600';
     case 'B': return 'bg-emerald-600';
     case 'C': return 'bg-orange-600';
+    case 'D': return 'bg-purple-600';
     default: return 'bg-slate-600';
   }
 };
@@ -75,10 +84,6 @@ export const fetchFromGoogleSheets = async (): Promise<QueueInfo[] | null> => {
   }
 };
 
-/**
- * Selalu mencoba ambil dari cloud jika memungkinkan agar update otomatis di Google Sheets
- * langsung tercermin di aplikasi (Live).
- */
 export const fetchQueueData = async (): Promise<QueueInfo[]> => {
   const cloudData = await fetchFromGoogleSheets();
   

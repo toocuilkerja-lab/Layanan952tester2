@@ -5,32 +5,31 @@ import { ServiceCategory, QueueInfo } from '../types';
 import { fetchQueueData } from '../services/queueService';
 
 const QueueCard: React.FC<{ queue: QueueInfo }> = ({ queue }) => {
-  // Rumus Sisa: Nomor Terakhir (C) - Nomor Sekarang (D)
   const lastNum = parseInt(queue.last.toString().replace(/[^0-9]/g, '')) || 0;
   const currentNum = parseInt(queue.current.toString().replace(/[^0-9]/g, '')) || 0;
   const remaining = Math.max(0, lastNum - currentNum);
 
   return (
     <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col items-center text-center transition-all hover:shadow-md">
-      <div className={`${queue.color} w-full py-1.5 rounded-t-xl -mt-4 mb-3 text-[9px] font-bold text-white uppercase tracking-widest`}>
+      <div className={`${queue.color} w-full py-1.5 rounded-t-xl -mt-4 mb-3 text-[10px] font-bold text-white uppercase tracking-widest`}>
         {queue.label}
       </div>
       
       <div className="flex flex-col items-center justify-center mb-3 mt-1">
         <span className="text-[10px] text-slate-400 font-medium">Sedang Dilayani</span>
-        <span className="text-2xl font-black text-slate-800 tracking-tighter">{queue.current}</span>
+        <span className="text-3xl font-black text-slate-800 tracking-tighter">{queue.current}</span>
       </div>
       
       <div className="w-full h-px bg-slate-50 mb-3"></div>
       
       <div className="flex justify-between w-full px-2">
         <div className="text-left">
-          <p className="text-[8px] text-slate-400 uppercase font-bold">Terakhir</p>
-          <p className="text-xs font-bold text-slate-600">{queue.last}</p>
+          <p className="text-[9px] text-slate-400 uppercase font-bold">Terakhir</p>
+          <p className="text-sm font-bold text-slate-600">{queue.last}</p>
         </div>
         <div className="text-right">
-          <p className="text-[8px] text-slate-400 uppercase font-bold">Sisa</p>
-          <p className="text-xs font-bold text-blue-600">{remaining}</p>
+          <p className="text-[9px] text-slate-400 uppercase font-bold">Sisa</p>
+          <p className="text-sm font-bold text-blue-600">{remaining}</p>
         </div>
       </div>
     </div>
@@ -52,7 +51,6 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
     };
     loadData();
     
-    // Refresh otomatis setiap 30 detik untuk sinkronisasi dengan Google Sheets
     const interval = setInterval(loadData, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -79,23 +77,18 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
         </div>
         
         {loading ? (
-          <div className="grid grid-cols-3 gap-3">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="bg-white h-32 rounded-2xl animate-pulse border border-slate-100"></div>
+          <div className="grid grid-cols-2 gap-4">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="bg-white h-40 rounded-2xl animate-pulse border border-slate-100 shadow-sm"></div>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             {queues.map(q => (
               <QueueCard key={q.id} queue={q} />
             ))}
           </div>
         )}
-        
-        <div className="bg-white/50 border border-slate-100 rounded-xl p-2.5 flex items-center justify-center space-x-2">
-           <i className="fa-solid fa-info-circle text-blue-500 text-[10px]"></i>
-           <p className="text-[9px] text-slate-500">Data antrian sinkron dengan database <span className="font-bold">"antrian"</span> di cloud.</p>
-        </div>
       </div>
 
       <div>
